@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Gestor Sustentável</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🌱 O Gestor Sustentável</h1>
+        <p>Agro forte, futuro sustentável</p>
+    </header>
+
+    <main>
+
+        <section id="inicio">
+            <h2>Bem-vindo!</h2>
+
+            <label for="nome">Digite seu nome:</label>
+            <input type="text" id="nome">
+
+            <button id="btnIniciar">
+                Iniciar Jogo
+            </button>
+
+            <p id="erro"></p>
+        </section>
+
+        <section id="jogo" class="oculto">
+
+            <h2 id="boasVindas"></h2>
+
+            <div class="painel">
+                <div class="card">
+                    <h3>💰 Lucro</h3>
+                    <p id="lucro">50</p>
+                </div>
+
+                <div class="card">
+                    <h3>🌱 Sustentabilidade</h3>
+                    <p id="ambiental">50</p>
+                </div>
+
+                <div class="card">
+                    <h3>👨‍🌾 Comunidade</h3>
+                    <p id="comunidade">50</p>
+                </div>
+            </div>
+
+            <h3 id="ano">Ano 1</h3>
+
+            <div class="cenario">
+                <p id="pergunta">
+                    Uma nova tecnologia agrícola foi disponibilizada.
+                    O que você deseja fazer?
+                </p>
+
+                <button class="escolha" data-opcao="1">
+                    Investir em agricultura sustentável
+                </button>
+
+                <button class="escolha" data-opcao="2">
+                    Buscar lucro rápido
+                </button>
+
+                <button class="escolha" data-opcao="3">
+                    Equilibrar produção e preservação
+                </button>
+            </div>
+
+            <p id="mensagem"></p>
+
+        </section>
+
+        <section id="final" class="oculto">
+            <h2>Resultado Final</h2>
+            <p id="resultado"></p>
+
+            <button onclick="location.reload()">
+                Jogar Novamente
+            </button>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
