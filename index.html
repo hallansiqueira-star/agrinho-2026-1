@@ -3,89 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Gestor Sustentável</title>
+    <title>O Gestor Sustentável - Jogo de Decisão</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <h1>🌱 O Gestor Sustentável</h1>
-        <p>Agro forte, futuro sustentável</p>
+        <div class="header-container">
+            <h1>Agro Forte, Futuro Sustentável</h1>
+            <p id="dinamic-welcome">Carregando saudação...</p>
+        </div>
     </header>
 
     <main>
-
-        <section id="inicio">
-            <h2>Bem-vindo!</h2>
-
-            <label for="nome">Digite seu nome:</label>
-            <input type="text" id="nome">
-
-            <button id="btnIniciar">
-                Iniciar Jogo
-            </button>
-
-            <p id="erro"></p>
+        <section id="auth-section" class="card">
+            <h2>Bem-vindo ao Jogo do Gestor</h2>
+            <p>Assuma o controle de uma propriedade rural e prove que é possível equilibrar alta produção com preservação ambiental!</p>
+            
+            <form id="start-form">
+                <div class="form-group">
+                    <label for="username">Nome do Gestor(a):</label>
+                    <input type="text" id="username" required minlength="3" placeholder="Digite seu nome">
+                    <span class="error-message" id="name-error">O nome precisa de pelo menos 3 caracteres.</span>
+                </div>
+                <button type="submit" id="btn-start">Iniciar Jornada</button>
+            </form>
         </section>
 
-        <section id="jogo" class="oculto">
-
-            <h2 id="boasVindas"></h2>
-
-            <div class="painel">
-                <div class="card">
-                    <h3>💰 Lucro</h3>
-                    <p id="lucro">50</p>
+        <section id="game-section" class="card hidden">
+            <div class="dashboard">
+                <div class="stat-box">
+                    <span class="stat-label">Produtividade:</span>
+                    <div class="progress-bar">
+                        <div id="bar-production" class="progress-fill production" style="width: 50%;"></div>
+                    </div>
+                    <span id="txt-production" class="stat-value">50%</span>
                 </div>
 
-                <div class="card">
-                    <h3>🌱 Sustentabilidade</h3>
-                    <p id="ambiental">50</p>
-                </div>
-
-                <div class="card">
-                    <h3>👨‍🌾 Comunidade</h3>
-                    <p id="comunidade">50</p>
+                <div class="stat-box">
+                    <span class="stat-label">Sustentabilidade:</span>
+                    <div class="progress-bar">
+                        <div id="bar-sustainability" class="progress-fill sustainability" style="width: 50%;"></div>
+                    </div>
+                    <span id="txt-sustainability" class="stat-value">50%</span>
                 </div>
             </div>
 
-            <h3 id="ano">Ano 1</h3>
+            <hr>
 
-            <div class="cenario">
-                <p id="pergunta">
-                    Uma nova tecnologia agrícola foi disponibilizada.
-                    O que você deseja fazer?
-                </p>
-
-                <button class="escolha" data-opcao="1">
-                    Investir em agricultura sustentável
-                </button>
-
-                <button class="escolha" data-opcao="2">
-                    Buscar lucro rápido
-                </button>
-
-                <button class="escolha" data-opcao="3">
-                    Equilibrar produção e preservação
-                </button>
+            <div id="scenario-container">
+                <h3 id="scenario-title">Cenário 1</h3>
+                <p id="scenario-text">Carregando cenário...</p>
+                
+                <div class="options-container">
+                    <button type="button" class="btn-option" id="opt-A">Opção A</button>
+                    <button type="button" class="btn-option" id="opt-B">Opção B</button>
+                </div>
             </div>
 
-            <p id="mensagem"></p>
-
+            <div id="feedback-container" class="hidden">
+                <p id="feedback-text"></p>
+            </div>
         </section>
 
-        <section id="final" class="oculto">
-            <h2>Resultado Final</h2>
-            <p id="resultado"></p>
-
-            <button onclick="location.reload()">
-                Jogar Novamente
-            </button>
+        <section id="result-section" class="card hidden">
+            <h2>Relatório Final de Gestão</h2>
+            <div id="result-content">
+                </div>
+            <button type="button" id="btn-restart">Jogar Novamente</button>
         </section>
-
     </main>
 
-    <script src="js/script.js"></script>
+    <footer>
+        <p>&copy; 2026 - Desenvolvido de forma autoral para o Concurso Agrinho.</p>
+        <p><small>Tecnologias: HTML5 Semântico, CSS3 Avançado e JavaScript Vanilla.</small></p>
+    </footer>
 
+    <script src="js/game.js"></script>
 </body>
 </html>
