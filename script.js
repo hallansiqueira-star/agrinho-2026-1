@@ -1,132 +1,137 @@
 /**
  * Jogo de Decisão: O Gestor Sustentável
- * Lógica do jogo construída em JavaScript Puro (Vanilla JS)
+ * Lógica avançada para maior complexidade técnica e interatividade.
  */
 
-// --- BANCO DE DADOS DOS CENÁRIOS (HISTÓRIA) ---
+// --- BANCO DE DADOS DOS CENÁRIOS RURAIS ---
 const scenarios = [
     {
-        title: "Cenário 1: Uso da Água na Irrigação",
-        text: "Uma forte estiagem está prevista. Qual sistema de irrigação você vai implementar na lavoura?",
+        title: "Uso da Água na Irrigação",
+        text: "Uma forte estiagem está prevista para a região. Qual sistema de gerenciamento hídrico você vai implementar na propriedade?",
         options: {
             A: {
-                text: "Irrigação por inundação (Mais barata, alta produção imediata, alto desperdício de água).",
+                text: "Irrigação por Pivô Central Tradicional. (Menor custo de instalação, alta produção, porém gera alta evaporação e desperdício de recursos).",
                 prod: 20,
                 sust: -25,
-                feedback: "Sua produção subiu, mas os lençóis freáticos da região sofreram um estresse severo."
+                feedback: "Impacto: A produção disparou a curto prazo, mas os lençóis freáticos locais sofreram queda crítica."
             },
             B: {
-                text: "Gotejamento automatizado (Investimento inicial alto, economia extrema de recursos hídricos).",
-                prod: 5,
-                sust: 20,
-                feedback: "Excelente! Tecnologia aliada ao campo. Uso eficiente da água garante o futuro da região."
+                text: "Gotejamento Subterrâneo Automatizado. (Alto investimento em tecnologia, mas direciona a água direto à raiz reduzindo perdas a quase zero).",
+                prod: 8,
+                sust: 25,
+                feedback: "Impacto: Excelente escolha tecnológica! A eficiência hídrica protegeu sua fazenda e o meio ambiente do estresse climático."
             }
         }
     },
     {
-        title: "Cenário 2: Controle de Pragas",
-        text: "Uma nova lagarta ameaça a plantação de milho de forma agressiva. O que fazer?",
+        title: "Controle de Pragas e Vetores",
+        text: "Uma infestação severa de lagartas ameaça dizimar a safra de grãos. Qual será sua postura operacional?",
         options: {
             A: {
-                text: "Pulverização maciça de defensivos químicos tradicionais de largo espectro.",
+                text: "Aplicação imediata e maciça de defensivos químicos sintéticos de amplo espectro.",
                 prod: 25,
                 sust: -30,
-                feedback: "As pragas morreram, mas polinizadores como as abelhas locais foram severamente afetados."
+                feedback: "Impacto: A praga sumiu, mas os polinizadores e abelhas da região foram dizimados, quebrando a biodiversidade."
             },
             B: {
-                text: "Adotar o Manejo Integrado de Pragas (MIP) usando inimigos naturais e defensivos biológicos.",
-                prod: 15,
-                sust: 25,
-                feedback: "Perfeito! O equilíbrio ecológico barrou a praga sem envenenar o solo e a fauna."
+                text: "Uso de Defensivos Biológicos combinados com o Manejo Integrado de Pragas (MIP).",
+                prod: 12,
+                sust: 20,
+                feedback: "Impacto: Fantástico. O ecossistema respondeu bem, combatendo os alvos biológicos sem contaminar o lençol freático."
             }
         }
     },
     {
-        title: "Cenário 3: Fontes de Energia",
-        text: "A fazenda precisa expandir sua estrutura elétrica para os galpões de armazenamento. De onde virá a energia?",
+        title: "Expansão de Matriz Energética",
+        text: "Os galpões de beneficiamento precisam de mais energia elétrica para operar os maquinários. Qual fonte escolher?",
         options: {
             A: {
-                text: "Conectar à rede antiga padrão movida a geradores a Diesel auxiliares.",
-                prod: 15,
+                text: "Instalar geradores robustos movidos a combustão de Óleo Diesel padrão.",
+                prod: 20,
                 sust: -15,
-                feedback: "Rápido e barato, porém aumentou a pegada de carbono da propriedade rural."
+                feedback: "Impacto: Energia barata e rápida, contudo sua emissão de gases poluentes e pegada de carbono subiram consideravelmente."
             },
             B: {
-                text: "Instalar painéis solares fotovoltaicos aproveitando a área do telhado dos galpões.",
+                text: "Investir em uma mini-usina de Painéis Solares Fotovoltaicos integrados aos telhados.",
                 prod: 10,
                 sust: 25,
-                feedback: "Inovação limpa! A fazenda agora produz a própria energia de forma limpa."
+                feedback: "Impacto: Autossuficiência limpa! A fazenda agregou valor ecológico de longo prazo e reduziu custos futuros."
             }
         }
     }
 ];
 
-// --- VARIÁVEIS DE ESTADO DO JOGO ---
+// --- VARIÁVEIS DE ESTADO ---
 let currentScenarioIndex = 0;
 let stats = { production: 50, sustainability: 50 };
 let playerName = "";
 
-// --- SELETORES DO DOM ---
+// --- SELETORES DO DOM DO HTML ---
 const authSection = document.getElementById("auth-section");
 const gameSection = document.getElementById("game-section");
 const resultSection = document.getElementById("result-section");
-
 const startForm = document.getElementById("start-form");
 const usernameInput = document.getElementById("username");
 const nameError = document.getElementById("name-error");
 const welcomeText = document.getElementById("dinamic-welcome");
 
+// Elementos das Barras
 const barProduction = document.getElementById("bar-production");
 const barSustainability = document.getElementById("bar-sustainability");
 const txtProduction = document.getElementById("txt-production");
 const txtSustainability = document.getElementById("txt-sustainability");
 
+// Elementos de Cenário
 const scenarioTitle = document.getElementById("scenario-title");
 const scenarioText = document.getElementById("scenario-text");
 const optAButton = document.getElementById("opt-A");
 const optBButton = document.getElementById("opt-B");
 
+// Feedbacks e Resultados
 const feedbackContainer = document.getElementById("feedback-container");
 const feedbackText = document.getElementById("feedback-text");
 const resultContent = document.getElementById("result-content");
 const btnRestart = document.getElementById("btn-restart");
 
-// --- RECURSO DIFERENCIAL: MENSAGEM DINÂMICA DE ACORDO COM O HORÁRIO ---
+// --- DIFERENCIAL 1: SAUDAÇÃO INTELIGENTE POR HORÁRIO DO SISTEMA ---
 function setDynamicWelcome() {
-    const hours = new Date().getHours();
+    const currentHour = new Date().getHours();
     let greeting = "Olá";
-    if (hours >= 5 && hours < 12) greeting = "Bom dia";
-    else if (hours >= 12 && hours < 18) greeting = "Boa tarde";
+    
+    if (currentHour >= 5 && currentHour < 12) greeting = "Bom dia";
+    else if (currentHour >= 12 && currentHour < 18) greeting = "Boa tarde";
     else greeting = "Boa noite";
     
-    welcomeText.textContent = `¡${greeting}, produtor rural! Prepare-se para gerenciar.`;
+    welcomeText.textContent = `¡${greeting}, Gestor(a)! Analise os dados com precisão para prosperar.`;
 }
 
-// --- EXECUÇÃO INICIAL ---
+// Inicializa a saudação ao carregar a página
 setDynamicWelcome();
 
-// --- CONTROLE DE FLUXO E VALIDAÇÃO ---
+// --- VALIDAÇÃO E TRANSIÇÃO DE TELAS ---
 startForm.addEventListener("submit", function(event) {
-    event.preventDefault(); // Impede o recarregamento do HTML
+    event.preventDefault(); 
     
     const inputVal = usernameInput.value.trim();
     
-    // Validação Avançada via JS
+    // Validação avançada via JS
     if (inputVal.length < 3) {
         nameError.style.display = "block";
+        usernameInput.style.borderColor = "var(--error-color)";
         return;
     }
     
     nameError.style.display = "none";
     playerName = inputVal;
     
-    // Transição de telas
+    // Animação de sumiço controlada por classe
     authSection.classList.add("hidden");
     gameSection.classList.remove("hidden");
     
     initGame();
 });
 
+// --- INICIALIZADOR DO ROUND ---
 function initGame() {
     currentScenarioIndex = 0;
     stats.production = 50;
@@ -136,21 +141,22 @@ function initGame() {
     loadScenario();
 }
 
-// --- ATUALIZAÇÃO DA INTERFACE (DOM) ---
+// --- ATUALIZAÇÃO DO PAINEL (DOM) ---
 function updateDashboard() {
-    // Garante travas entre 0 e 100%
+    // Restringe os valores estritamente entre 0 e 100
     stats.production = Math.max(0, Math.min(100, stats.production));
     stats.sustainability = Math.max(0, Math.min(100, stats.sustainability));
 
-    // Atualiza barras visuais
+    // Atualiza a largura das barras baseado nos dados manipulados
     barProduction.style.width = `${stats.production}%`;
     barSustainability.style.width = `${stats.sustainability}%`;
     
-    // Atualiza texto numérico
+    // Atualiza os contadores em formato de texto
     txtProduction.textContent = `${stats.production}%`;
     txtSustainability.textContent = `${stats.sustainability}%`;
 }
 
+// --- CARREGAMENTO DE CENÁRIOS DINÂMICOS ---
 function loadScenario() {
     if (currentScenarioIndex >= scenarios.length) {
         endGame();
@@ -158,81 +164,45 @@ function loadScenario() {
     }
 
     const currentScenario = scenarios[currentScenarioIndex];
-    scenarioTitle.textContent = currentScenario.title;
+    
+    // Injeta marcador de turno estruturado (Badge) para melhor usabilidade
+    scenarioTitle.innerHTML = `<span class="turn-badge">Decisão ${currentScenarioIndex + 1} de ${scenarios.length}</span><br>${currentScenario.title}`;
     scenarioText.textContent = currentScenario.text;
     
     optAButton.textContent = currentScenario.options.A.text;
     optBButton.textContent = currentScenario.options.B.text;
 }
 
-// --- PROCESSAMENTO DA DECISÃO ---
+// --- LOGICA DE PROCESSAMENTO DE DECISÕES ---
 function handleDecision(optionChosen) {
     const currentScenario = scenarios[currentScenarioIndex];
     const decision = currentScenario.options[optionChosen];
     
-    // Computa modificadores nas variáveis
+    // Modifica as variáveis internas
     stats.production += decision.prod;
     stats.sustainability += decision.sust;
     
+    // Atualiza a interface gráfica imediatamente
     updateDashboard();
     
-    // Exibe feedback contextual animado
+    // Apresenta o bloco de feedback contextual
     feedbackText.textContent = decision.feedback;
     feedbackContainer.classList.remove("hidden");
     
-    // Trava botões temporariamente para o usuário ler o feedback
+    // Desabilita cliques repetidos durante a animação de leitura
     optAButton.disabled = true;
     optBButton.disabled = true;
 
+    // Transição temporizada para leitura do impacto (3.5 segundos)
     setTimeout(() => {
         currentScenarioIndex++;
         optAButton.disabled = false;
         optBButton.disabled = false;
         feedbackContainer.classList.add("hidden");
         loadScenario();
-    }, 4000); // 4 segundos para leitura do impacto
+    }, 3500);
 }
 
-// Eventos de clique nas opções
+// Escutadores de eventos nativos
 optAButton.addEventListener("click", () => handleDecision("A"));
-optBButton.addEventListener("click", () => handleDecision("B"));
-
-// --- TELA DE RESULTADOS (CRITÉRIO DO TEMA DO AGRINHO) ---
-function endGame() {
-    gameSection.classList.add("hidden");
-    resultSection.classList.remove("hidden");
-    
-    let diagnosisTitle = "";
-    let diagnosisDesc = "";
-    
-    // Lógica de avaliação do balanço (Eixo do tema do concurso)
-    const balanceDifference = Math.abs(stats.production - stats.sustainability);
-    
-    if (stats.production >= 60 && stats.sustainability >= 60 && balanceDifference <= 20) {
-        diagnosisTitle = "🏆 Gestor de Elite: Equilíbrio Perfeito!";
-        diagnosisDesc = `Parabéns, ${playerName}! Você provou que o 'Agro forte, futuro sustentável' é real. Sua fazenda produz muito mantendo o ecossistema protegido.`;
-    } else if (stats.production > stats.sustainability) {
-        diagnosisTitle = "🚜 Foco Excessivo em Produção";
-        diagnosisDesc = `A fazenda faturou bem, ${playerName}, mas a agressão ao ecossistema cobrará o preço no futuro com solo infértil e falta de água.`;
-    } else if (stats.sustainability > stats.production) {
-        diagnosisTitle = "🌱 Reserva Ecológica, Baixa Eficiência";
-        diagnosisDesc = `A natureza está impecável, ${playerName}, mas a propriedade não gerou alimentos e receita suficientes para se manter forte no mercado.`;
-    } else {
-        diagnosisTitle = "⚠️ Alerta de Falência Geral";
-        diagnosisDesc = `Gestão crítica. Ambos os indicadores caíram para níveis perigosos. Reavalie suas estratégias.`;
-    }
-
-    resultContent.innerHTML = `
-        <h3>${diagnosisTitle}</h3>
-        <p>${diagnosisDesc}</p>
-        <div style="margin-top: 1.5rem; text-align: left;">
-            <p><strong>Pontuação Final:</strong></p>
-            <ul>
-                <li>Eficiência de Produção: ${stats.production}%</li>
-                <li>Preservação Sustentável: ${stats.sustainability}%</li>
-            </ul>
-        </div>
-    `;
-}
-
-// Rein
+optBButton.addEventListener("click", () => handleDecision

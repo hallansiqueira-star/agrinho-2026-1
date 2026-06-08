@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Gestor Sustentável - Jogo de Decisão</title>
+    <title>O Gestor Sustentável | Jogo de Decisão Agrinho</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,49 +11,55 @@
     <header>
         <div class="header-container">
             <h1>Agro Forte, Futuro Sustentável</h1>
-            <p id="dinamic-welcome">Carregando saudação...</p>
+            <p id="dinamic-welcome">Carregando saudação dinâmica...</p>
         </div>
     </header>
 
     <main>
+        
         <section id="auth-section" class="card">
             <h2>Bem-vindo ao Jogo do Gestor</h2>
-            <p>Assuma o controle de uma propriedade rural e prove que é possível equilibrar alta produção com preservação ambiental!</p>
+            <p>Assuma o controle de uma propriedade rural simulada. Seu desafio é tomar decisões estratégicas para expandir a produção mantendo o equilíbrio ecológico e a saúde do meio ambiente!</p>
             
-            <form id="start-form">
+            <form id="start-form" novalidate>
                 <div class="form-group">
-                    <label for="username">Nome do Gestor(a):</label>
-                    <input type="text" id="username" required minlength="3" placeholder="Digite seu nome">
-                    <span class="error-message" id="name-error">O nome precisa de pelo menos 3 caracteres.</span>
+                    <label for="username">Nome do Gestor(a) da Fazenda:</label>
+                    <input type="text" id="username" autocomplete="off" placeholder="Ex: Maria Silva" required>
+                    <span class="error-message" id="name-error">O nome do gestor é obrigatório e deve conter pelo menos 3 caracteres.</span>
                 </div>
-                <button type="submit" id="btn-start">Iniciar Jornada</button>
+                <button type="submit" id="btn-start">Iniciar Jornada Rural</button>
             </form>
         </section>
 
         <section id="game-section" class="card hidden">
+            
             <div class="dashboard">
                 <div class="stat-box">
-                    <span class="stat-label">Produtividade:</span>
-                    <div class="progress-bar">
-                        <div id="bar-production" class="progress-fill production" style="width: 50%;"></div>
+                    <div class="stat-header">
+                        <span class="stat-label">📈 Produtividade:</span>
+                        <span id="txt-production" class="stat-value">50%</span>
                     </div>
-                    <span id="txt-production" class="stat-value">50%</span>
+                    <div class="progress-bar">
+                        <div id="bar-production" class="progress-fill production"></div>
+                    </div>
                 </div>
 
                 <div class="stat-box">
-                    <span class="stat-label">Sustentabilidade:</span>
-                    <div class="progress-bar">
-                        <div id="bar-sustainability" class="progress-fill sustainability" style="width: 50%;"></div>
+                    <div class="stat-header">
+                        <span class="stat-label">🌿 Sustentabilidade:</span>
+                        <span id="txt-sustainability" class="stat-value">50%</span>
                     </div>
-                    <span id="txt-sustainability" class="stat-value">50%</span>
+                    <div class="progress-bar">
+                        <div id="bar-sustainability" class="progress-fill sustainability"></div>
+                    </div>
                 </div>
             </div>
 
             <hr>
 
             <div id="scenario-container">
-                <h3 id="scenario-title">Cenário 1</h3>
-                <p id="scenario-text">Carregando cenário...</p>
+                <h3 id="scenario-title">Carregando Identificador do Turno...</h3>
+                <p id="scenario-text">Carregando descrição do cenário e dilema agrônomo...</p>
                 
                 <div class="options-container">
                     <button type="button" class="btn-option" id="opt-A">Opção A</button>
@@ -62,21 +68,21 @@
             </div>
 
             <div id="feedback-container" class="hidden">
-                <p id="feedback-text"></p>
+                <p id="feedback-text">Analisando impactos ambientais e econômicos da sua escolha...</p>
             </div>
         </section>
 
         <section id="result-section" class="card hidden">
-            <h2>Relatório Final de Gestão</h2>
-            <div id="result-content">
-                </div>
-            <button type="button" id="btn-restart">Jogar Novamente</button>
+            <h2>Relatório Consolidado de Gestão</h2>
+            <div id="result-content"></div>
+            <button type="button" id="btn-restart">Iniciar Nova Safra (Reiniciar)</button>
         </section>
+        
     </main>
 
     <footer>
-        <p>&copy; 2026 - Desenvolvido de forma autoral para o Concurso Agrinho.</p>
-        <p><small>Tecnologias: HTML5 Semântico, CSS3 Avançado e JavaScript Vanilla.</small></p>
+        <p>&copy; 2026 - Projeto Desenvolvido de Forma Autoral para o Concurso Agrinho.</p>
+        <p><small>Tema: Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente.</small></p>
     </footer>
 
     <script src="js/game.js"></script>

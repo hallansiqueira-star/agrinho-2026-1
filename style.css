@@ -1,20 +1,26 @@
-/* Paleta de Cores Temática: Agro e Sustentabilidade */
+/* Paleta de Cores Temática e Variáveis */
 :root {
+    --green-dark: #1b5e20;
     --green-primary: #2e7d32;
     --green-light: #4caf50;
+    --green-glow: #e8f5e9;
     --gold-production: #f57c00;
+    --gold-light: #ffe0b2;
     --dark-neutral: #263238;
-    --light-bg: #f4f6f7;
+    --light-bg: #f8f9fa;
     --white: #ffffff;
     --error-color: #d32f2f;
+    --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.05);
+    --shadow-strong: 0 12px 20px rgba(0, 0, 0, 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Reset Básico */
+/* Reset e Estilização Base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', system-ui, Helvetica, sans-serif;
 }
 
 body {
@@ -23,216 +29,289 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Header */
+/* Header Detalhado */
 header {
-    background: linear-gradient(135deg, var(--green-primary), var(--green-light));
+    background: linear-gradient(135deg, var(--green-dark), var(--green-primary));
     color: var(--white);
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold-production), var(--green-light));
 }
 
 header h1 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
     margin-bottom: 0.5rem;
 }
 
-/* Container Principal */
+#dinamic-welcome {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Container de Layout */
 main {
     flex: 1;
     width: 100%;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 850px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
 }
 
-/* Cartões (Containers de Interface) */
+/* Cartões de Interface Estilizados */
 .card {
     background: var(--white);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    animation: slideUp 0.5s ease-out;
 }
 
 .card h2 {
-    color: var(--green-primary);
-    margin-bottom: 1rem;
+    color: var(--green-dark);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
 }
 
-/* Formulários e Validação */
+/* Formulários e Inputs */
 .form-group {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     display: flex;
     flex-direction: column;
 }
 
 .form-group label {
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
 }
 
 .form-group input {
-    padding: 0.8rem;
-    border: 2px solid #ccc;
-    border-radius: 6px;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
     font-size: 1rem;
-    outline: none;
+    transition: var(--transition-smooth);
+    background-color: #fafafa;
 }
 
 .form-group input:focus {
-    border-color: var(--green-light);
+    border-color: var(--green-primary);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+    outline: none;
 }
 
 .error-message {
     color: var(--error-color);
     font-size: 0.85rem;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
     display: none;
 }
 
-/* Botões */
+/* Botões Modernos */
 button {
     cursor: pointer;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 2rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
-    font-weight: bold;
-    transition: all 0.2s ease;
+    font-weight: 700;
+    transition: var(--transition-smooth);
 }
 
 #btn-start, #btn-restart {
-    background-color: var(--green-primary);
+    background: linear-gradient(135deg, var(--green-primary), var(--green-light));
     color: var(--white);
     width: 100%;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
 }
 
 #btn-start:hover, #btn-restart:hover {
-    background-color: var(--green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
 }
 
-/* Dashboard de Status */
+/* Dashboard de Status Superior */
 .dashboard {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    background: #fdfdfd;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px dashed #e0e0e0;
 }
 
-.stat-box {
+.stat-header {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
 }
 
 .stat-label {
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .progress-bar {
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    height: 20px;
+    background-color: #eceff1;
+    border-radius: 20px;
+    height: 24px;
     width: 100%;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .progress-fill {
     height: 100%;
     width: 50%;
-    transition: width 0.5s ease-in-out;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .progress-fill.production {
-    background-color: var(--gold-production);
+    background: linear-gradient(90deg, #ff9800, var(--gold-production));
 }
 
 .progress-fill.sustainability {
-    background-color: var(--green-light);
+    background: linear-gradient(90deg, var(--green-light), var(--green-primary));
 }
 
-/* Área de Cenários e Opções */
+.stat-value {
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+/* Área de Cenários e Opções Fluida */
+#scenario-container h3 {
+    color: var(--dark-neutral);
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+}
+
+#scenario-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #546e7a;
+    margin-bottom: 2rem;
+}
+
 .options-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.2rem;
 }
 
 .btn-option {
-    background-color: var(--light-bg);
+    background-color: var(--white);
     color: var(--dark-neutral);
-    border: 2px solid #e0e0e0;
+    border: 2px solid #edf0f2;
     text-align: left;
-    padding: 1rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    line-height: 1.5;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.01);
 }
 
 .btn-option:hover {
-    background-color: #edf7ed;
+    background-color: var(--green-glow);
     border-color: var(--green-light);
-    transform: translateX(5px);
+    transform: translateX(8px);
+    color: var(--green-dark);
 }
 
-/* Feedback Contextual */
+/* Informativo do Turno Atual */
+.turn-badge {
+    display: inline-block;
+    background-color: var(--gold-light);
+    color: #e65100;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Feedback Contextual Fluido */
 #feedback-container {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    border-left: 5px solid var(--green-light);
-    background-color: #f1f8e9;
-    border-radius: 4px;
-    animation: fadeIn 0.4s ease;
+    margin-top: 2rem;
+    padding: 1.2rem;
+    border-left: 6px solid var(--green-light);
+    background-color: var(--green-glow);
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease;
 }
 
-/* Classes Utilitárias */
-.hidden {
-    display: none !important;
+#feedback-text {
+    font-weight: 500;
+    color: var(--green-dark);
 }
 
-hr {
-    margin: 1.5rem 0;
-    border: 0;
-    border-top: 1px solid #eee;
-}
-
-/* Footer */
+/* Rodapé */
 footer {
     background-color: var(--dark-neutral);
-    color: #b0bec5;
+    color: #cfd8dc;
     text-align: center;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
     margin-top: auto;
     font-size: 0.9rem;
+    border-top: 3px solid var(--green-primary);
 }
 
-/* Animações */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+/* Configuração de Animações */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
-@media (min-width: 600px) {
-    header {
-        padding: 3rem 2rem;
-    }
+@media (min-width: 650px) {
+    header { padding: 4rem 2rem; }
+    header h1 { font-size: 3rem; }
     
     .dashboard {
         flex-direction: row;
+        gap: 2rem;
     }
+    .stat-box { flex: 1; }
     
-    .stat-box {
-        flex: 1;
-    }
-
     .options-container {
         flex-direction: row;
     }
-
     .btn-option {
         flex: 1;
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
